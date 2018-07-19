@@ -40,59 +40,55 @@ The main purpose of this document is to help developers improve code quality. As
 1\. **[Mandatory]** Names should not start or end with an underline or  a dollar sign.   
 > <font color="#FF4500">Counter example: </font> \_name / \_\_name / \$Object / name_ / name\$ / Object\$
 
-2\. **[Mandatory]** Using Chinese, Pinyin, or Pinyin-English mixed spelling in naming is strictly prohibited. Accurate English spelling and grammar will make the code readable, understandable, and maintainable.   
-> <font color="#019858">Positive example: </font> alibaba / taobao / youku / Hangzhou. In these cases, Chinese proper names in Pinyin are acceptable.
-
-3\. **[Mandatory]** Class names should be nouns in UpperCamelCase except domain models: DO, BO, DTO, VO, etc.   
+2\. **[Mandatory]** Class names should be nouns in UpperCamelCase except domain models: DO, BO, DTO, VO, etc.   
  > <font color="#019858">Positive example: </font>MarcoPolo  /  UserDO  /  HtmlDTO  /  XmlService  /  TcpUdpDeal / TaPromotion  
  > <font color="#FF4500">Counter example: </font>marcoPolo  /  UserDo  /  HTMLDto  /  XMLService  /  TCPUDPDeal / TAPromotion  
   
-4\. **[Mandatory]** Method names, parameter names, member variable names, and local variable names should be written in lowerCamelCase.   
+3\. **[Mandatory]** Method names, parameter names, member variable names, and local variable names should be written in lowerCamelCase.   
 > <font color="#019858">Positive example: </font> localValue / getHttpMessage()  /  inputUserId    
 
 
-5\. **[Mandatory]** Constant variable names should be written in upper characters separated by underscores. These names should be semantically complete and clear.   
+4\. **[Mandatory]** Constant variable names should be written in upper characters separated by underscores. These names should be semantically complete and clear.   
 > <font color="#019858">Positive example: </font> MAX\_STOCK\_COUNT   
 > <font color="#FF4500">Counter example: </font> MAX\_COUNT   
 
-6\. **[Mandatory]** Abstract class names must start with *Abstract* or *Base*. Exception class names must end with *Exception*. Test case names shall start with the class names to be tested and end with *Test*.
+5\. **[Mandatory]** Abstract class names must start with *Abstract* or *Base*. Exception class names must end with *Exception*. Test case names shall start with the class names to be tested and end with *Test*.
 
-7\. **[Mandatory]** Brackets are a part of an Array type. The definition could be: *<font color="blue">String[]</font> args;*  
+6\. **[Mandatory]** Brackets are a part of an Array type. The definition could be: *<font color="blue">String[]</font> args;*  
 > <font color="#FF4500">Counter example: </font>*String args[];*
 
-8\. **[Mandatory]** Do not add 'is' as prefix while defining Boolean variable, since it may cause a serialization exception in some Java frameworks.  
+7\. **[Mandatory]** Do not add 'is' as prefix while defining Boolean variable, since it may cause a serialization exception in some Java frameworks.  
 > <font color="#FF4500">Counter example: </font>*boolean isSuccess;* The method name will be `isSuccess()` and then RPC framework will deduce the variable name as 'success', resulting in a serialization error since it cannot find the correct attribute.
 
-9\. **[Mandatory]** A package should be named in lowercase characters. There should be only one English word after each dot. Package names are always in <font color="blue">singular</font> format while class names can be in plural format if necessary.  
+8\. **[Mandatory]** A package should be named in lowercase characters. There should be only one English word after each dot. Package names are always in <font color="blue">singular</font> format while class names can be in plural format if necessary.  
 > <font color="#019858">Positive example: </font> `com.alibaba.open.util` can be used as a package name for utils;
 `MessageUtils` can be used as a class name.
 
-
-10\. **[Mandatory]** Uncommon abbreviations should be avoided for the sake of legibility.     
+9\. **[Mandatory]** Uncommon abbreviations should be avoided for the sake of legibility.     
  > <font color="#FF4500">Counter example: </font>AbsClass (AbstractClass); condi (Condition)
 
-11\. **[Recommended]**  The pattern name is recommended to be included in the class name if any design pattern is used.  
+10\. **[Recommended]**  The pattern name is recommended to be included in the class name if any design pattern is used.  
  > <font color="#019858">Positive example: </font>`public class OrderFactory;  `
 `public class LoginProxy;`  `public class ResourceObserver;`  
 > <font color="#977C00">Note: </font> Including corresponding pattern names helps readers understand ideas in design patterns quickly.
 
-12\. **[Recommended]** Do not add any modifier, including `public`, to methods in interface classes for coding simplicity. Please add valid *Javadoc* comments for methods. Do not define any variables in the interface except for the common constants of the application.  
+11\. **[Recommended]** Do not add any modifier, including `public`, to methods in interface classes for coding simplicity. Please add valid *Javadoc* comments for methods. Do not define any variables in the interface except for the common constants of the application.  
  > <font color="#019858">Positive example: </font>method definition in the interface: `void f(); `  
 constant definition: `String COMPANY = "alibaba";`    
 > <font color="#977C00">Note: </font>In JDK8 it is allowed to define a default implementation for interface methods, which is valuable for all implemented classes.
 
-13\. There are two main rules for interface and corresponding implementation class naming:  
+12\. There are two main rules for interface and corresponding implementation class naming:  
 &emsp;&emsp;1) **[Mandatory]** All *Service* and *DAO* classes must be interfaces based on SOA principle. Implementation class names should end with *Impl*.  
   > <font color="#019858">Positive example: </font>`CacheServiceImpl` to implement `CacheService`.  
     
 &emsp;&emsp;2) **[Recommended]** If the interface name is to indicate the ability of the interface, then its name should be an adjective.  
   > <font color="#019858">Positive example: </font>`AbstractTranslator` to implement `Translatable`.
 
-14\. **[For Reference]** An Enumeration class name should end with *Enum*. Its members should be spelled out in upper case words, separated by underlines.  
+13\. **[For Reference]** An Enumeration class name should end with *Enum*. Its members should be spelled out in upper case words, separated by underlines.  
  > <font color="#977C00">Note: </font>Enumeration is indeed a special constant class and all constructor methods are private by default.  
  > <font color="#019858">Positive example: </font>Enumeration name: `DealStatusEnum`; Member name: `SUCCESS  / UNKOWN_REASON`.
 
-15\. **[For Reference]** Naming conventions for different package layers:  
+14\. **[For Reference]** Naming conventions for different package layers:  
 &emsp;&emsp;A) Naming conventions for Service/DAO layer methods  
 &emsp;&emsp;&emsp;&emsp;1) Use `get` as name prefix for a method to get a single object.  
 &emsp;&emsp;&emsp;&emsp;2) Use `list` as name prefix for a method to get multiple objects.  
