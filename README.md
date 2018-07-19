@@ -26,7 +26,7 @@
 * [5. Security Specification](#5-security-specification)
 
 ## Preface
-We are pleased to present **Alibaba Java Coding Guidelines**, which consolidates the best programming practices from Alibaba Group's technical teams. A vast number of Java programming teams impose demanding requirements on code quality across projects as we encourage reuse and better understanding of each other's programs. We have seen many programming problems in the past. For example, defective database table structures and index designs may cause software architecture flaws and performance risks. As another example, confusing code structures make it difficult to maintain. Furthermore, vulnerable code without authentication is prone to hackers’ attacks. To address those kinds of problems, we developed this document for Java developers in Alibaba. 
+We are pleased to present **Eway Java Groovy Coding Guidelines** based on Alibaba Java Coding Guidelines, which consolidates the best programming practices from Eway's technical teams. A vast number of Java programming teams impose demanding requirements on code quality across projects as we encourage reuse and better understanding of each other's programs. We have seen many programming problems in the past. For example, defective database table structures and index designs may cause software architecture flaws and performance risks. As another example, confusing code structures make it difficult to maintain. Furthermore, vulnerable code without authentication is prone to hackers’ attacks. To address those kinds of problems, we developed this document for Java and Groovy developers in Eway. 
 
 This document consists of five parts: ***Programming Specification***, ***Exception and Logs***, ***MySQL Specification***, ***Project Specification*** and ***Security Specification***. Based on the severity of the concerns, each specification is classified into three levels: ***Mandatory***, ***Recommended*** and ***Reference***. Further clarification is expressed in:  
  (1) "**Description**", which explains the content;  
@@ -34,8 +34,6 @@ This document consists of five parts: ***Programming Specification***, ***Except
  (3) "**Counter examples**", which describe precautions and actual error cases.
 
 The main purpose of this document is to help developers improve code quality. As a result, developers can minimize potential and repetitive code errors. In addition, specification is essential to modern software architectures, which enable effective  collaborations. As an analogy, traffic regulations are intended to protect public safety rather than to deprive the rights of driving. It is easy to imagine the chaos of traffic without speed limits and traffic lights. Instead of destroying the creativity and elegance of program, the purpose of developing appropriate specification and standards of software is to improve the efficiency of collaboration by limiting excessive personalization.
-
-We will continue to collect feedback from the community to improve Alibaba Java Coding Guidelines. 
       
 ## <font color="green">1. Programming Specification</font>
 ### <font color="green">Naming Conventions</font>
