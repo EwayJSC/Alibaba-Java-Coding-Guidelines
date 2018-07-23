@@ -725,9 +725,8 @@ As the name suggests, these are purely informational messages; they should not b
 	- Some application types or stages in the development process require special environments for application execution. In these cases, using a debugger tool may not be a viable option. In these cases, DEBUG messages can be a useful instrument for finding the solution to tricky bugs.
 
 **What should I be logging?**
-If the application log is the only detailed source of information available to the support team when trying to diagnose a failure, then it probably needs to be quite detailed. However, if there are other tools available for monitoring user-activities, the logged information could be more sparse. Either way, regardless of the required level of detail, the quality of each individual logged message is important, and that is what this section will primarily focus on.
-- The importance of context
 
+If the application log is the only detailed source of information available to the support team when trying to diagnose a failure, then it probably needs to be quite detailed. However, if there are other tools available for monitoring user-activities, the logged information could be more sparse. Either way, regardless of the required level of detail, the quality of each individual logged message is important, and that is what this section will primarily focus on.
 
 1\. **[Mandatory]** Do not use API in log system (Log4j, Logback) directly. API in log framework SLF4J is recommended to use instead, which uses *Facade* pattern and is conducive to keep log processing consistent.
 ```java
