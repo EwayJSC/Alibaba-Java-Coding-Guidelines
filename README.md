@@ -709,7 +709,7 @@ private boolean checkParam (DTO dto) {
 ### <font color="green">Logs</font>
 
 **Type of log levels**
-- INFO: 
+- INFO 
 As the name suggests, these are purely informational messages; they should not be used to indicate a fault or error state in the application. To use this log level effectively, try to think about what general information would be useful for diagnosing an application error when the primary interface is not accessible. Some information that may be of use are:
 	- Version information relating to the software - it is often a good idea to output this to the log at application startup. There is nothing worse than trying to diagnose a problem when you are not even sure what software is being used!
 	- Usage information - who is using the software? What are they currently doing?
