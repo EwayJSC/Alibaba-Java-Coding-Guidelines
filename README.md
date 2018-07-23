@@ -911,8 +911,36 @@ map.put("size", size);
 
 ## <font color="green">4. Project Specification</font>
 ### <font color="green">Application Layers</font>
+1\. **[Recommended]** 
+**The Goals of Architecture**
+Application architecture seeks to build a bridge between business requirements and technical requirements by understanding use cases, and then finding ways to implement those use cases in the software. The goal of architecture is to identify the requirements that affect the structure of the application. Good architecture reduces the business risks associated with building a technical solution. A good design is sufficiently flexible to be able to handle the natural drift that will occur over time in hardware and software technology, as well as in user scenarios and requirements. An architect must consider the overall effect of design decisions, the inherent tradeoffs between quality attributes (such as performance and security), and the tradeoffs required to address user, system, and business requirements.
 
-1\. **[Recommended]** The upper layer depends on the lower layer by default. Arrow means direct dependent. 
+Keep in mind that the architecture should:
+- Expose the structure of the system but hide the implementation details.
+- Realize all of the use cases and scenarios.
+- Try to address the requirements of various stakeholders.
+- Handle both functional and quality requirements.
+
+**The Architectural Landscape**
+Consider the following key trends:
+- User empowerment. A design that supports user empowerment is flexible, configurable, and focused on the user experience. Design your application with appropriate levels of user personalization and options in mind. Allow the user to define how they interact with your application instead of dictating to them, but do not overload them with unnecessary options and settings that can lead to confusion. Understand the key scenarios and make them as simple as possible; make it easy to find information and use the application.
+- Market maturity. Take advantage of market maturity by taking advantage of existing platform and technology options. Build on higher level application frameworks where it makes sense, so that you can focus on what is uniquely valuable in your application rather than recreating something that already exists and can be reused. Use patterns that provide rich sources of proven solutions for common problems.
+- Flexible design. Increasingly, flexible designs take advantage of loose coupling to allow reuse and to improve maintainability. Pluggable designs allow you to provide post-deployment extensibility. You can also take advantage of service orientation techniques such as SOA to provide interoperability with other systems.
+- Future trends. When building your architecture, understand the future trends that might affect your design after deployment. For example, consider trends in rich UI and media, composition models such as mashups, increasing network bandwidth and availability, increasing use of mobile devices, continued improvement in hardware performance, interest in community and personal publishing models, the rise of cloud-based computing, and remote operation.
+
+**Key Architecture Principles**
+- Build to change instead of building to last. Consider how the application may need to change over time to address new requirements and challenges, and build in the flexibility to support this.
+- Model to analyze and reduce risk. Use design tools, modeling systems such as Unified Modeling Language (UML), and visualizations where appropriate to help you capture requirements and architectural and design decisions, and to analyze their impact. However, do not formalize the model to the extent that it suppresses the capability to iterate and adapt the design easily.
+- Use models and visualizations as a communication and collaboration tool. Efficient communication of the design, the decisions you make, and ongoing changes to the design, is critical to good architecture. Use models, views, and other visualizations of the architecture to communicate and share your design efficiently with all the stakeholders, and to enable rapid communication of changes to the design.
+- Identify key engineering decisions. Use the information in this guide to understand the key engineering decisions and the areas where mistakes are most often made. Invest in getting these key decisions right the first time so that the design is more flexible and less likely to be broken by changes.
+
+**Consider the following questions as you create an architectural design**
+- What are the foundational parts of the architecture that represent the greatest risk if you get them wrong?
+- What are the parts of the architecture that are most likely to change, or whose design you can delay until later with little impact?
+- What are your key assumptions, and how will you test them?
+- What conditions may require you to refactor the design?
+
+2\. **[Recommended]** The upper layer depends on the lower layer by default. Arrow means direct dependent. 
 
 **Zoom Out Flow**
 
@@ -931,13 +959,13 @@ Key Business Components:
 
 ![](Three_tier_application.png)
 
-2\. **[For Reference]** Many exceptions in the *DAO Layer* cannot be caught by using a fine-grained exception class. The recommended way is to use `catch (Exception e)`, and `throw new DAOException(e)`. In these cases, there is no need to print the log because the log should have been caught and printed in *Manager Layer/Service Layer*.  
+3\. **[For Reference]** Many exceptions in the *DAO Layer* cannot be caught by using a fine-grained exception class. The recommended way is to use `catch (Exception e)`, and `throw new DAOException(e)`. In these cases, there is no need to print the log because the log should have been caught and printed in *Manager Layer/Service Layer*.  
 &emsp;&emsp; Logs about exception in *Service Layer* must be recorded with as much information about the parameters as possible to make debugging simpler.   
 &emsp;&emsp; If *Manager Layer* and *Service Layer* are deployed in the same server, log logic should be consistent with *DAO Layer*. If they are deployed separately, log logic should be consistent with each other.  
  &emsp;&emsp; In *Web Layer* Exceptions cannot be thrown, because it is already on the top layer and there is no way to deal with abnormal situations. If the exception is likely to cause failure when rendering the page, the page should be redirected to a friendly error page with the friendly error information.  
 &emsp;&emsp; In *Open Interface* exceptions should be handled by using *error code* and *error message*.
 
-3\. **[For Reference]** Layers of Domain Model:  
+4\. **[For Reference]** Layers of Domain Model:  
 
 - **DO (Data Object):** Corresponding to the database table structure, the data source object is transferred upward through *DAO* Layer.
 - **DTO (Data Transfer Object):** Objects which are transferred upward by *Service Layer* and Manager Layer.
