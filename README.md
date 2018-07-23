@@ -707,6 +707,32 @@ private boolean checkParam (DTO dto) {
 16\. **[Recommended]** Design an appropriate logging and notification strategy for critical errors and exceptions that does not reveal sensitive information.
 
 ### <font color="green">Logs</font>
+
+**Type of log levels**
+- INFO: 
+As the name suggests, these are purely informational messages; they should not be used to indicate a fault or error state in the application. To use this log level effectively, try to think about what general information would be useful for diagnosing an application error when the primary interface is not accessible. Some information that may be of use are:
+	- Version information relating to the software - it is often a good idea to output this to the log at application startup. - - There is nothing worse than trying to diagnose a problem when you are not even sure what software is being used!
+	- Usage information - who is using the software? What are they currently doing?
+	- What external services is this application using - databases, Web-Services, etc...
+- WARN
+This is the first level which indicates some form of application failure. With three levels at your disposal, consistent usage guidelines are important. WARN level messages should be used to indicate that the application faced a potential problem; however, the user experience has not been affected in any way. For example, a WARN message might be appropriate if an external service could not be used; however, a secondary service which performs the same functions was available. Also, a WARN message is appropriate if repeated attempts were required to access a given resource.
+
+ERROR
+This is the second level of failure, and by its very name, it should indicate that something more critical has occurred. ERROR messages should be used to indicate that the application faced a significant problem and that, as a result, the user experience was affected in some way. For example, a database connection could have failed, resulting in parts of the application being rendered unusable.
+
+FATAL
+This third level of failure should be used to indicate a fatal error. The user experience was not just affected, it has entirely ceased! For example, a component which is central to the operation of the application has failed in a way that leaves it in an unstable state, with the only possible course of action being to terminate the application altogether.
+
+DEBUG
+This log level is used to indicate that the logged message is to be used for debugging purposes - in other words, these messages are aimed squarely at the developer. What you use this for really depends on the application you are developing. Many problems can be resolved via the debugger, making the use of DEBUG messages redundant; however, there are a few situations where DEBUG messages are quite useful, for example:
+	- In debugging graphics rendering desktop applications, the process of firing up the debugger may interfere with the render process itself. In these instances, DEBUG messages can be a useful way of 'watching' the render process in a less obtrusive fashion.
+	- Some application types or stages in the development process require special environments for application execution. In these cases, using a debugger tool may not be a viable option. In these cases, DEBUG messages can be a useful instrument for finding the solution to tricky bugs.
+
+**What should I be logging?**
+If the application log is the only detailed source of information available to the support team when trying to diagnose a failure, then it probably needs to be quite detailed. However, if there are other tools available for monitoring user-activities, the logged information could be more sparse. Either way, regardless of the required level of detail, the quality of each individual logged message is important, and that is what this section will primarily focus on.
+- The importance of context
+
+
 1\. **[Mandatory]** Do not use API in log system (Log4j, Logback) directly. API in log framework SLF4J is recommended to use instead, which uses *Facade* pattern and is conducive to keep log processing consistent.
 ```java
 import org.slf4j.Logger; 
