@@ -964,8 +964,6 @@ Consider the following key trends:
 
 2\. **[Recommended]** The upper layer depends on the lower layer by default. Arrow means direct dependent. 
 
-**Zoom Out Flow**
-
 ![](Business_Layer_Guidelines.png)
 
 - **Presentation Layers:** This is the topmost level of the application. The presentation tier displays information related to such services as browsing merchandise, purchasing and shopping cart contents. It communicates with other tiers by which it puts out the results to the browser/client tier and all other tiers in the network. In simple terms, it is a layer which users can access directly (such as a web page, or an operating system's GUI).
@@ -997,9 +995,6 @@ Adhere to user driven design principles. Before designing your presentation laye
 		+ Consider security risks. The data access layer should protect against attacks that try to steal or corrupt data, and protect the mechanisms used to gain access to the data source. For example, sanitize error and exception information so that data source information is not revealed, and use least privilege accounts to restrict privileges to only those needed to perform the operations required by the application. Even if the data source itself has the ability to limit privileges, security should be implemented in the data access layer as well as in the data source. Database access should be through parameterized queries to prevent SQL injection attacks succeeding. Never use string concatenation to build dynamic queries from user input data.
 		+ Reduce round trips. Consider batching commands into a single database operation.
 		+ Consider performance and scalability objectives. Scalability and performance objectives for the data access layer should be taken into account during design. For example, when designing an Internet-based commerce application, data layer performance is likely to be a bottleneck for the application. When data layer performance is critical, use profiling to understand and then reduce or resolve expensive data operations.
-**Zoom In Flow**
-
-![](Three_tier_application.png)
 
 3\. **[For Reference]** Many exceptions in the *DAO Layer* cannot be caught by using a fine-grained exception class. The recommended way is to use `catch (Exception e)`, and `throw new DAOException(e)`. In these cases, there is no need to print the log because the log should have been caught and printed in *Manager Layer/Service Layer*.  
 &emsp;&emsp; Logs about exception in *Service Layer* must be recorded with as much information about the parameters as possible to make debugging simpler.   
