@@ -26,7 +26,7 @@
 * [5. Security Specification](#5-security-specification)
 
 ## Preface
-We are pleased to present **Eway Java Groovy Coding Guidelines** based on Alibaba Java Coding Guidelines, which consolidates the best programming practices from Eway's technical teams. A vast number of Java programming teams impose demanding requirements on code quality across projects as we encourage reuse and better understanding of each other's programs. We have seen many programming problems in the past. For example, defective database table structures and index designs may cause software architecture flaws and performance risks. As another example, confusing code structures make it difficult to maintain. Furthermore, vulnerable code without authentication is prone to hackers’ attacks. To address those kinds of problems, we developed this document for Java and Groovy developers in Eway. 
+We are pleased to present **Eway Java Groovy Coding Guidelines** which strongly based on Alibaba Java Coding Guidelines and consolidates the best programming practices from Eway's technical teams. A vast number of Java programming teams impose demanding requirements on code quality across projects as we encourage reuse and better understanding of each other's programs. We have seen many programming problems in the past. For example, defective database table structures and index designs may cause software architecture flaws and performance risks. As another example, confusing code structures make it difficult to maintain. Furthermore, vulnerable code without authentication is prone to hackers’ attacks. To address those kinds of problems, we developed this document for Java and Groovy developers in Eway. 
 
 This document consists of five parts: ***Programming Specification***, ***Exception and Logs***, ***MySQL Specification***, ***Project Specification*** and ***Security Specification***. Based on the severity of the concerns, each specification is classified into three levels: ***Mandatory***, ***Recommended*** and ***Reference***. Further clarification is expressed in:  
  (1) "**Description**", which explains the content;  
@@ -912,21 +912,21 @@ map.put("size", size);
 ## <font color="green">4. Project Specification</font>
 ### <font color="green">Application Layers</font>
 
-1\. **[Recommended]** The upper layer depends on the lower layer by default. Arrow means direct dependent. For example: Open Interface can depend on Web Layer, it can also directly depend on Service Layer, etc.: 
+1\. **[Recommended]** The upper layer depends on the lower layer by default. Arrow means direct dependent. 
+**Zoom Out Flow**
+![](Business_Layer_Guidelines.png)
 
-![](layers.png)
+- **Presentation Layers:** This is the topmost level of the application. The presentation tier displays information related to such services as browsing merchandise, purchasing and shopping cart contents. It communicates with other tiers by which it puts out the results to the browser/client tier and all other tiers in the network. In simple terms, it is a layer which users can access directly (such as a web page, or an operating system's GUI).  
+- **Application tier (business logic, logic tier, or middle tier):** In this layer concrete business logic is implemented.   
+Key Business Components:
++ Application façade (optional). An application façade combines multiple business operations into a single message-based operation. You might access the application façade from the presentation layer by using different communication technologies.
++ Business components. Within the business layer there are different components that provide business services, such as processing business rules and interacting with data access components. For example, you might have a business component that implements the transaction script pattern, which allows you to execute multiple operations within a single component used to manage the transaction. Another business component might be used to process requests and apply business rules.
++ Business entities. Business components used to pass data between other components are considered business entities. The data can represent real-world business entities, such as products and orders, or database entities, such as tables and views. The business entities that an application uses internally can be implemented using custom objects that represent real-world or database entities your application has to work with. Alternatively, business entities can be implemented using data structures such as DataSets and Extensible Markup Language (XML) documents.
++ Business workflows. Many business processes involve multiple steps that must be performed in the correct order and orchestrated. Business workflows define and coordinate long-running, multi-step business processes, and can be implemented using business process management tools.
+- **Data Layer:** The data tier includes the data persistence mechanisms (database servers, file shares, etc.) and the data access layer that encapsulates the persistence mechanisms and exposes the data. The data access layer should provide an API to the application tier that exposes methods of managing the stored data without exposing or creating dependencies on the data storage mechanisms. Avoiding dependencies on the storage mechanisms allows for updates or changes without the application tier clients being affected by or even aware of the change. As with the separation of any tier, there are costs for implementation and often costs to performance in exchange for improved scalability and maintainability.
 
-- **Open Interface:** In this layer service is encapsulate to be exposed as RPC interface, or HTTP interface through Web Layer; The layer also implements gateway security control, flow control, etc.  
-- **View:** In this layer templates of each terminal render and execute. Rendering approaches include velocity rendering, JS rendering, JSP rendering, and mobile display, etc.  
-- **Web Layer:** This layer is mainly used to implement forward access control, basic parameter verification, or  non-reusable services.   
-- **Service Layer:** In this layer concrete business logic is implemented.   
-- **Manager Layer:** This layer is the common business process layer, which contains the following features:  
-&emsp;&emsp;1) Encapsulates third-party service, to preprocess return values and exceptions;  
-&emsp;&emsp;2) The precipitation of general ability of Service Layer, such as caching solutions, middleware general processing;  
-&emsp;&emsp;3) Interacts with the *DAO layer*, including composition and reuse of multiple *DAO* classes.  
-- **DAO Layer**: Data access layer, data interacting with MySQL, Oracle and HBase.  
-- **External interface or third-party platform:** This layer includes RPC open interface from other departments or companies.   
- 
+**Zoom In Flow**
+![](Three_tier_application.png)
 
 2\. **[For Reference]** Many exceptions in the *DAO Layer* cannot be caught by using a fine-grained exception class. The recommended way is to use `catch (Exception e)`, and `throw new DAOException(e)`. In these cases, there is no need to print the log because the log should have been caught and printed in *Manager Layer/Service Layer*.  
 &emsp;&emsp; Logs about exception in *Service Layer* must be recorded with as much information about the parameters as possible to make debugging simpler.   
