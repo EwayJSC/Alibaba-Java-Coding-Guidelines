@@ -28,7 +28,8 @@
 ## Preface
 We are pleased to present **Eway Java Coding Guidelines** which strongly based on Alibaba Java Coding Guidelines and consolidates the best programming practices from Eway's technical teams. A vast number of Java programming teams impose demanding requirements on code quality across projects as we encourage reuse and better understanding of each other's programs. We have seen many programming problems in the past. For example, defective database table structures and index designs may cause software architecture flaws and performance risks. As another example, confusing code structures make it difficult to maintain. Furthermore, vulnerable code without authentication is prone to hackers’ attacks. To address those kinds of problems, we developed this document for Java and Groovy developers in Eway. 
 
-This document consists of five parts: ***Programming Specification***, ***Exception and Logs***, ***MySQL Specification***, ***Project Specification*** and ***Security Specification***. Based on the severity of the concerns, each specification is classified into three levels: ***Mandatory***, ***Recommended*** and ***Reference***. Further clarification is expressed in:  
+This document consists of five parts: ***Programming Specification***, ***
+***, ***MySQL Specification***, ***Project Specification*** and ***Security Specification***. Based on the severity of the concerns, each specification is classified into three levels: ***Mandatory***, ***Recommended*** and ***Reference***. Further clarification is expressed in:  
  (1) "**Description**", which explains the content;  
  (2) "**Positive examples**", which describe recommended coding and implementation approaches;   
  (3) "**Counter examples**", which describe precautions and actual error cases.
@@ -699,6 +700,11 @@ private boolean checkParam (DTO dto) {
     ...
 }
 ```
+14\. **[Recommended]** Design an appropriate exception propagation strategy. For example, allow exceptions to bubble up to boundary layers where they can be logged and transformed as necessary before passing them to the next layer.
+
+15\. **[Recommended]** Design an approach for catching and handling unhandled exceptions.
+
+16\. **[Recommended]** Design an appropriate logging and notification strategy for critical errors and exceptions that does not reveal sensitive information.
 
 ### <font color="green">Logs</font>
 1\. **[Mandatory]** Do not use API in log system (Log4j, Logback) directly. API in log framework SLF4J is recommended to use instead, which uses *Facade* pattern and is conducive to keep log processing consistent.
@@ -741,11 +747,18 @@ logger.debug("Processing trade with id: {} and symbol : {} ", id, symbol);
 ```java
 logger.error(various parameters or objects toString + "_" + e.getMessage(), e);
 ```
-
 7\. **[Recommended]** Carefully record logs. Use *Info* level selectively and do not use *Debug* level in production environment. If *Warn* is used to record business behavior, please pay attention to the size of logs. Make sure the server disk is not over-filled, and remember to delete these logs in time.  
 > <font color="#977C00">Note: </font> Outputting a large number of invalid logs will have a certain impact on system performance, and is not conducive to rapid positioning problems. Please think about the log: do you really have these logs? What can you do to see this log? Is it easy to troubleshoot problems?
 
 8\. **[Recommended]** Level *Warn* should be used to record invalid parameters, which is used to track data when problem occurs. Level *Error* only records the system logic error, abnormal and other important error messages. 
+
+9\. **[Recommended]** Centralize logging and instrumentation for your business layer.
+
+10\. **[Recommended]** Do not store business-sensitive information in the log files.
+
+11\. **[Recommended]** Ensure that a logging failure does not affect normal business layer functionality.
+
+12\. **[Recommended]** Consider auditing and logging all access to functions within business layer.
 
 ## <font color="green">3. MySQL Rules</font>
 ### <font color="green">Table Schema Rules</font>
@@ -787,8 +800,6 @@ logger.error(various parameters or objects toString + "_" + e.getMessage(), e);
 
 14\. **[Recommended]** Database sharding may only be recommended when there are more than 5 million rows in a single table or table capacity exceeds 2GB.  
 > <font color="#977C00">Note: </font>Please do not shard during table creation if anticipated data quantity is not to reach this grade.  
-
-
 15\. **[For Reference]** Appropriate *char* column length not only saves database and index storing space, but also improves query efficiency.  
 > <font color="#019858">Positive example: </font> Unsigned types could avoid storing negative values mistakenly, but also may cover bigger data representative range.
 
