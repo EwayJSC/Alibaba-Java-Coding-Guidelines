@@ -1117,3 +1117,5 @@ Adhere to user driven design principles. Before designing your presentation laye
 
 8\. **[Recommended]** In scenarios when users generate content (e.g., posting, comment, instant messages), anti-scam word filtering and other risk control strategies must be applied.
 
+*Reference*
+1\. https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff650706(v=pandp.10)
